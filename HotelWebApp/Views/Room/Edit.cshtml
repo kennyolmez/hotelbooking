@@ -1,0 +1,27 @@
+﻿@using HotelWebApp.ViewModels;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model CMSRoomViewModel
+
+@{
+    foreach(var item in Model.RoomNumbers)
+    {
+        <form method="post" asp-controller="Room" asp-action="Edit">
+       <div>
+       <p>Room Number: @item</p>
+              <select asp-for="RoomType" 
+                asp-items="@(new SelectList(Model.RoomTypes))">
+                <option>Select a room type</option>
+            </select>
+        </div>
+        <input type="hidden" value="" name="id">
+        <input type="submit" value="Edit">
+        </form>
+        <br />
+    }
+}

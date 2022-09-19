@@ -1,0 +1,53 @@
+﻿@using System.Security.Claims
+@using HotelWebApp.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RoomsInfoViewModel
+<div style="width:700px; margin:0 auto;">
+    <div class="roomTitle"><h1>@Model.RoomType.Title</h1></div>
+<img src="@Model.RoomType.ImgUrl" alt="Hotel Room"
+                     height="400" width="700">
+</div>
+
+
+
+<div>
+    <h2>Post Review</h2>
+    <form method="post" asp-controller="Rooms" asp-action="PostReview">
+     <div id="ReviewForm"></div>  
+            <ol>  
+                <ul>  
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" cols="25" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </ul>  
+                <ul>  
+                    <label asp-for="Rating">Rating</label>
+                    <input asp-for="Rating" type="text" />
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </ul> 
+                <ul>  
+                    <input asp-for="RoomTypeId" type="hidden"/>
+                    <input asp-for="UserEmail" value="@User.FindFirstValue(ClaimTypes.Email)" type="hidden"/>
+                </ul>  
+            </ol>  
+        <button type="submit" class="btn btn-info">Post Review</button>
+</form>
+</div>
+
+
+<h3>Reviews</h3> 
+    <div>
+        @foreach(var review in @Model.Reviews)
+    {
+        <ol>
+            <li>
+                <p>@review.Description [@review.UserEmail] [@review.DatePosted.ToShortDateString()]</p>
+            </li>
+        </ol>
+    }
+    </div>

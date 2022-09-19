@@ -1,0 +1,62 @@
+﻿@using HotelWebApp.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using HotelWebApp.ViewModels
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CMSRoomTypeCreateViewModel
+
+
+
+
+<form method="post" asp-controller="RoomType" asp-action="Create">
+             <div>
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="col-xs-4"/>
+            <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <br />
+                <div>
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="col-xs-4" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+             </div>
+             <div>
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="col-xs-4" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+             </div>
+             <div>
+            <label asp-for="ImgUrl"></label>
+            <input asp-for="ImgUrl" class="col-xs-4" />
+            <span asp-validation-for="ImgUrl" class="text-danger"></span>
+             </div>
+             <div>
+            <label asp-for="Size"></label>
+            <input asp-for="Size" class="col-xs-4" />
+            <span asp-validation-for="Size" class="text-danger"></span>
+             </div>
+             <div>
+                @{
+            foreach(var amenity in Model.Amenities)
+                {
+                <input type="checkbox" name="Amenities" value="@amenity">
+                <label for="@amenity">@amenity</label>       
+                }
+                }
+             </div>
+             <button type="submit" class="btn btn-info">Create</button>
+        </form>
+
+
+
+

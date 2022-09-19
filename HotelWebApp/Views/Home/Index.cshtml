@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using HotelWebApp.ViewModels
+
+@model HomeIndexViewModel
+
+<form method="post" asp-controller="Home" asp-action="Index" id="datepickerform"> 
+<div id="roomsearchdiv">
+    <div class="topdiv">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="checkdiv blockwidth">
+            <div id="check-in-date">
+                <label asp-for="CheckInDate" id="datelabel">Check-In Date</label>
+                <input asp-for="CheckInDate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+            </div>
+            <div id="check-out-date">
+                <label asp-for="CheckOutDate" id="datelabel">Check-Out Date</label>
+                <input asp-for="CheckOutDate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+            </div>
+        </div>
+        <div class="price-input blockwidth">
+            <div class="price_field">
+                <label asp-for="MinPrice"></label>
+                <input asp-for="MinPrice" type="number" class="input-min"value="0"/>
+            </div>
+            <div class="price_field">
+                <label asp-for="MaxPrice"></label>
+                <input asp-for="MaxPrice" type="number" class="input-min"value="500"/>
+            </div>
+        </div>
+        <div class="sliderdiv blockwidth">
+            <div class="range-input">
+                <label asp-for="MinPrice"></label>
+                <input asp-for="MinPrice" type="range" min="0" max="249" value="1" step="1" class="range-min"/>
+                <label asp-for="MaxPrice"></label>
+                <input asp-for="MaxPrice" type="range" min="0" max="250" value="250" step="1" class="range-min"/>
+            </div>
+        </div>
+        <div class="buttondiv">
+            <button type="submit" class="btn btn-info" id="searchbutton">Search</button>
+        </div>
+        
+   </div>
+   <div class="bottomdiv">
+    <div class="amenity_div">
+    @{
+        foreach(var amenity in ViewBag.Amenities)
+        {
+            <input type="checkbox" name="Amenities" value="@amenity.Id">
+            <label for="@amenity.Name">@amenity.Name</label>       
+        }
+    }
+    </div>
+</div>
+</div>
+
+
+
+
+
+<br /><br />
+
+</form>
+
+<br />
+<br />
+
+
+
+@if(Model != null)
+ {
+     @if(Model.RoomTypes.Count >= 1)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Hotel Room Type
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model.RoomTypes)
+        {
+            <form method="post" asp-controller="Booking" asp-action="Index">
+            <tr>
+                 <td width="50%">
+                     <img src="@obj.ImgUrl" alt="Hotel Room"
+                     height="200" width="300">
+                     <div>
+                       <input type="submit" class="astextsubmit" id="submit" value="@obj.Title">
+                     </div>
+                        <br/>
+                        @obj.Description
+                 </td>
+                 <td width="20%">
+                        <b>$@Math.Round(@obj.Price, 2)</b>
+                        &nbsp
+                        &nbsp
+                        <input type="hidden" name="id" value="@obj.Id" />
+                        <input type="hidden" value="@(Model?.CheckInDate)" name="checkInDate"/>
+                        <input type="hidden" value="@(Model?.CheckOutDate)" name="checkOutDate"/>
+                        <input type="submit" id="submit" value="Check Room">
+                 </td>
+                  <td width="20%">
+                      @foreach(var amenity in obj.Amenities)
+                                {
+                                    <i class="@amenity.Icon"></i>
+                                }
+                  </td>
+            </tr>
+            </form>
+        }
+    </tbody>
+        </table>
+    }
+    else
+    {
+         <h1>0 rooms available. Please change your options.</h1>
+    }
+}

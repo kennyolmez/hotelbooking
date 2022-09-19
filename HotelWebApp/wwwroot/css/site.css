@@ -1,0 +1,196 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+form {
+    text-align:center;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+#datepicker{
+    font: bold;
+    line-height: 1.6;
+}
+
+#roomsearchdiv {
+    background-color: #768ca8;
+    display: inline-block;
+    width: 85%;
+    padding: 10px;
+    border-radius: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+}
+.topdiv{
+    height:120px;
+}
+
+#check-in-date {
+    width: 100%;
+    float: left;
+}
+
+
+#check-out-date {
+    width: 100%;
+    float: left;
+}
+
+.roomsearchdiv datelabel{
+    padding-top: 20px;
+}
+
+.roomsearchdiv searchbutton{
+    padding-bottom: 2px;
+}
+
+.checkdiv {
+    display: inline-block;
+    float: left;
+}
+.pricediv {
+
+}
+.sliderdiv {
+    display: inline-flex;
+    float: left;
+}
+.buttondiv {
+    display: inline-flex;
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+.blockwidth{
+    width:30%;
+
+}
+
+
+.price-input {
+    display: block;
+    float: left;
+}
+.price-input .field {
+    width: 200px;
+    float: left;
+    height: 100px;
+}
+.price_field {
+    width: 100%;
+    display: block;
+
+}
+
+.range-input {
+    width: 100%;
+    float: left;
+}
+.range-input label{
+    display:block;
+
+}
+.infocontainer {
+    height: 210px;
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#amenity_div
+{
+    border:1px black solid;
+}
+#amenity_div input {
+    border: 1px blue solid;
+}
+#amenity_div label {
+    border: 1px red solid;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif "Helvetica Neue";
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+
+small{
+    font-size: 14px;
+    color: green;
+}
+
+room-description {
+    font-family: Arial, Helvetica, sans-serif "Helvetica Neue";
+    font-size: 16px;
+    bottom: 0;
+    right: 0;
+}
+
+
+room-image{
+    display: inline-block;
+}
+
+#textwrapper{
+    float:left;
+    width: 350px;
+}
+
+#imagewrapper{
+    float:right;
+}
+
+.astext {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+    text-decoration: underline;
+}
+
+.astextsubmit {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#reviewDescription {
+    height: 150px;
+    column-count: 20;
+}
+
+#roomInfo {
+    justify-content: center;
+}
+.roomTitle {
+    text-align: center;
+}

@@ -1,0 +1,11 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<form method="post" asp-controller="Booking" asp-action="UnbookRoom">
+    <input type="hidden" name="bookingId" value="@ViewBag.Id" />
+    <button type="submit" class="btn btn-primary">Unbook Room</button>
+</form>

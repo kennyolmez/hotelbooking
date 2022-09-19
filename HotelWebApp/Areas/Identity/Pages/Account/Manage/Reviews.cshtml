@@ -1,0 +1,60 @@
+﻿@page
+@model ReviewsModel
+@using ApplicationServices.DTOs
+@using HotelAppLibrary
+@{
+    ViewData["Title"] = "Reviews";
+    ViewData["ActivePage"] = ManageNavPages.Reviews;
+}
+
+
+
+ <table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Room Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Rating
+            </th>
+            <th>
+                Date Posted
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var review in Model.Reviews)
+        {    
+         <tr>
+             <td width=10%>
+                 @foreach(var roomType in (List<RoomTypeDTO>) ViewData["RoomTypes"])
+                     {
+                         @if(roomType.Id == review.RoomTypeId)
+                        {
+                            @roomType.Title
+                        }
+                    }
+             </td>
+             <td width=50%>
+                     @review.Description
+             </td>
+             <td width=10%>
+                     @review.Rating
+             </td>
+             <td width=10%>
+                     @review.DatePosted.ToShortDateString()
+             </td>
+        </tr>  
+        }
+    </tbody>
+        </table>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

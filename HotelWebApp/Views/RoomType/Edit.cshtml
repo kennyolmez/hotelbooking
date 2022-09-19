@@ -1,0 +1,55 @@
+﻿@using HotelWebApp.ViewModels;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model CMSRoomTypeEditViewModel
+<form method="post" asp-controller="RoomType" asp-action="Edit">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+@{
+    for(int i = 0; i < @Model.RoomTypes.Count(); i++)
+    {
+        <div>
+        <label asp-for="@Model.RoomTypes[i].Title"></label>
+        <input asp-for="Titles" value="@Model.RoomTypes[i].Title" class="col-xs-4"/>
+        <span asp-validation-for="Titles[i]" class="text-danger"></span>
+        </div>
+        <div>
+        <label asp-for="@Model.RoomTypes[i].Description"></label>
+        <input asp-for="Descriptions" value="@Model.RoomTypes[i].Description" class="col-xs-4"/>
+        <span asp-validation-for="Descriptions[i]" class="text-danger"></span>
+        </div>
+         <div>
+        <label asp-for="@Model.RoomTypes[i].Price"></label>
+        <input asp-for="Prices" value="@Model.RoomTypes[i].Price" class="col-xs-4"/>
+        <span asp-validation-for="Prices[i]" class="text-danger"></span>
+        </div>
+         <div>
+        <label asp-for="@Model.RoomTypes[i].ImgUrl"></label>
+        <input asp-for="ImgUrls" value="@Model.RoomTypes[i].ImgUrl" class="col-xs-4"/>
+        <span asp-validation-for="ImgUrls[i]" class="text-danger"></span>
+        </div>
+        <div>
+        <label asp-for="@Model.RoomTypes[i].Size"></label>
+        <input asp-for="Sizes" value="@Model.RoomTypes[i].Size" class="col-xs-4"/>
+        <span asp-validation-for="Sizes[i]" class="text-danger"></span>
+        </div>
+        <div>
+        @{
+            foreach(var amenity in Model.Amenities)
+                {
+                <input type="checkbox" name="Amenities" value="@amenity">
+                <label for="@amenity">@amenity</label>       
+                }
+                }
+        </div>        
+        <input asp-for="Ids" value="@Model.RoomTypes[i].Id" type="hidden">
+        <br />
+    }
+}
+<input type="submit" value="Edit">
+        </form>

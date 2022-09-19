@@ -1,0 +1,37 @@
+﻿@using HotelWebApp.ViewModels;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CMSAmenityEditViewModel
+
+<form method="post" asp-controller="Amenity" asp-action="Edit">
+    @{
+        for(int i = 0; i<Model.Amenity.Count(); i++)
+        {
+            <div>
+    <label asp-for="Names">Name</label>
+    <input asp-for="Names" value="@Model.Amenity[i].Name"/>
+    <span asp-validation-for="Names[i]" class="text-danger"></span>
+    </div>
+     <div>
+        <label asp-for="Icons">Icon</label>
+        <input asp-for="Icons" value="@Model.Amenity[i].Icon" class="col-xs-4"/>
+        <span asp-validation-for="Icons[i]" class="text-danger"></span>
+        </div>
+        <input asp-for="Ids" type="hidden" value="@Model.Amenity[i].Id">
+        <br />
+        }
+    }
+    <button type="submit" class="btn btn-info">Submit</button>
+    </form>

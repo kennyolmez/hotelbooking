@@ -1,0 +1,115 @@
+﻿@using HotelWebApp.Models
+@using HotelWebApp.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model BookingIndexViewModel
+
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <tbody>
+        <tr>
+                 <td width="10%">
+                        Title:
+                 </td>
+                 <td width="40%">
+                        @Model.RoomType.Title
+                 </td>
+            </tr>
+            <tr>
+                 <td width="10%">
+                        Description:
+                 </td>
+                 <td width="40%">
+                        @Model.RoomType.Description
+                 </td>
+            </tr>
+            <tr>
+                 <td width="10%">
+                        Price:
+                 </td>
+                 <td width="40%">
+                @(((@Model.CheckInDate - @Model.CheckOutDate).Days) * (@Model.RoomType.Price))
+                 </td>
+            </tr>
+            <tr>
+                 <td width="10%">
+                        Date:
+                 </td>
+                 <td width="40%">
+                        @Model.CheckInDate.Day - @Model.CheckOutDate.Day
+                 </td>
+            </tr>
+    </tbody>
+</table>
+
+
+<form method="post" asp-controller="Booking" asp-action="Create">
+        <div>
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="col-xs-4"/>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <br />
+         <div>
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="col-xs-4" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div>
+        @{
+            if(!User.Identity.IsAuthenticated)
+            {
+                //how do i disable this text box without getting validation errors?
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="col-xs-4" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            }
+            else
+            {
+                <input asp-for="Email" type="hidden" value="@User.Identity.Name"  class="col-xs-4">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            }
+        }    
+        </div>
+        <div class="mb-3">
+            <input type=hidden asp-for="RoomTypeId" class="form-control" />
+            <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input type=hidden asp-for="CheckInDate" class="form-control" />
+            <span asp-validation-for="CheckInDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input type=hidden asp-for="CheckOutDate" class="form-control" />
+            <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Book Room</button>
+</form>
+
+
+
+<div id="datepickerdiv">
+       <form method="post" asp-controller="Home" asp-action="Index" id="datepickerform"> 
+    <div>
+        <span id="datepicker">Check-in Date </span>
+        <br />
+        <input asp-for="CheckInDate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+        <br />
+        <span asp-validation-for="CheckInDate" class="text-danger"></span>
+     </div>
+     <div>
+       <span id="datepicker">Check-out Date</span>
+       <br />
+        <input asp-for="CheckOutDate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+        <br />
+        <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+    </div>
+    <br /><br />
+   <button type="submit" class="btn btn-info">Search</button>
+</form>
+</div>

@@ -1,0 +1,53 @@
+﻿@using HotelAppLibrary.Data
+@using HotelWebApp.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model List<RoomsIndexViewModel>
+
+
+    @foreach(var item in @Model)
+    {
+        <div class="infocontainer">
+            <div id="textwrapper">
+                <h2>@*<form method="post" asp-controller="Rooms" asp-action="Review">
+                    <input type="hidden" value="@room.Id" name="roomTypeId">
+                    <button class="astext">@room.Title REVIEWS</button>
+                </form>*@
+                    @item.RoomType.Title
+                   <br>
+                   <small>
+                       Reviews: @item.ReviewCount
+                       <br>
+                    @{
+                        if(item.Rating != null)
+                        {
+                            <small>Rating: @item.Rating</small>
+                        }
+                    }
+                    <form method="post" asp-controller="Rooms" asp-action="Info">
+                    <input asp-for="@item.RoomType.Id" name="roomTypeId" type="hidden"/>
+                    <button class="astext">Read More</button>
+                    </form>
+                    </small>
+               </h2>
+               <div class="iconrow">
+                   @foreach(var amenity in item.RoomType.Amenities)
+                                {
+                                    <i class="@amenity.Icon"></i>
+                                }
+               </div>
+               <p id="room-description">
+                   @item.RoomType.Description
+               </p>
+            </div>
+            <div id="imagewrapper">
+                <img src="@item.RoomType.ImgUrl" alt="Hotel Room"
+                     height="200" width="300">
+               </div>
+        </div>
+    }

@@ -62,6 +62,33 @@ namespace HotelAppLibrary.Data
                 .Property(r => r.Description)
                 .IsRequired()
                 .HasMaxLength(2000);
+
+
+            // Admin role
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", 
+                Name = "Admin", NormalizedName = "Admin".ToUpper() });
+
+            var hasher = new PasswordHasher<IdentityUser>();
+
+            modelBuilder.Entity<IdentityUser>().HasData(
+                new IdentityUser
+                {
+                    Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
+                    Email = "kennyolmezhotel@gmail.com",
+                    EmailConfirmed = true,
+                    UserName = "owner",
+                    NormalizedUserName = "Owner",
+                    PasswordHash = hasher.HashPassword(null, "secret")
+                }
+                );
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+            new IdentityUserRole<string>
+            {
+                RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210",
+                UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+            }
+        );
         }
 
     }

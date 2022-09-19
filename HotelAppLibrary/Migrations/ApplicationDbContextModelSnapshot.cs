@@ -4,7 +4,6 @@ using HotelAppLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,27 +11,85 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelAppLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220711193243_AddedReviews")]
-    partial class AddedReviews
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HotelAppLibrary.Models.ApplicationUser", b =>
+            modelBuilder.Entity("AmenityRoomType", b =>
+                {
+                    b.Property<int>("AmenitiesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomTypesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AmenitiesId", "RoomTypesId");
+
+                    b.HasIndex("RoomTypesId");
+
+                    b.ToTable("AmenityRoomType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Amenity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Amenities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Icon = "fas fa-hot-tub",
+                            Name = "Jacuzzi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Icon = "fa-solid fa-beer-mug-empty",
+                            Name = "Coffee"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Icon = "bi bi-laptop",
+                            Name = "Laptop"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Icon = "fa-solid fa-tv",
+                            Name = "TV"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookingsId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -47,11 +104,9 @@ namespace HotelAppLibrary.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -77,9 +132,6 @@ namespace HotelAppLibrary.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ReviewId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -101,9 +153,27 @@ namespace HotelAppLibrary.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1de98154-af1d-488e-ab0b-2cc695bf4c14",
+                            Email = "kennyolmezhotel@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "kennyolmezhotel@gmail.com",
+                            NormalizedUserName = "kennyolmezhotel@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBdarxsfLljqP/k0+PIL5mCYIRBNDDypIPvXJcRL8g3H4eNsyGp6zOlogiBjy+bBJw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "kennyolmezhotel@gmail.com"
+                        });
                 });
 
-            modelBuilder.Entity("HotelAppLibrary.Models.Bookings", b =>
+            modelBuilder.Entity("Domain.Entities.Bookings", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,28 +184,38 @@ namespace HotelAppLibrary.Migrations
                     b.Property<bool>("CheckedIn")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("Date");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GuestId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(3);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("Date");
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(2);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GuestId");
 
                     b.HasIndex("RoomId");
 
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("HotelAppLibrary.Models.Guest", b =>
+            modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,35 +223,16 @@ namespace HotelAppLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Guests");
-                });
-
-            modelBuilder.Entity("HotelAppLibrary.Models.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(2000)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -179,12 +240,16 @@ namespace HotelAppLibrary.Migrations
                     b.Property<int>("RoomTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("HotelAppLibrary.Models.Room", b =>
+            modelBuilder.Entity("Domain.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,9 +268,47 @@ namespace HotelAppLibrary.Migrations
                     b.HasIndex("RoomTypeId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoomNumber = 1,
+                            RoomTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoomNumber = 2,
+                            RoomTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoomNumber = 3,
+                            RoomTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoomNumber = 4,
+                            RoomTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            RoomNumber = 5,
+                            RoomTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            RoomNumber = 6,
+                            RoomTypeId = 4
+                        });
                 });
 
-            modelBuilder.Entity("HotelAppLibrary.Models.RoomType", b =>
+            modelBuilder.Entity("Domain.Entities.RoomType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,21 +318,63 @@ namespace HotelAppLibrary.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgUrl")
-                        .HasColumnType("varchar(200)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("Money");
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("RoomTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "A single room has one single bed for single occupancy. An additional bed (called an extra bed) may be added to this room at the request of a guest and charged accordingly.",
+                            ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                            Price = 0m,
+                            Size = 0,
+                            Title = "Single Room"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "A twin room has two single beds for double occupancy. An extra bed may be added to this room at the request of a guest and charged accordingly. Here the bed size is normally 3 feet by 6 feet. These rooms are suitable for sharing accommodation among a group of delegates meeting.",
+                            ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                            Price = 0m,
+                            Size = 0,
+                            Title = "Twin Room"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "A double room has one double bed for double occupancy. An extra bed may be added to this room at the request of a guest and charged accordingly. The size of the double bed is generally 4.5 feet by 6 feet.",
+                            ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                            Price = 0m,
+                            Size = 0,
+                            Title = "Double Room"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "A triple room has three separate single beds and can be occupied by three guests. This type of room is suitable for groups and delegates of meetings and conferences.",
+                            ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                            Price = 0m,
+                            Size = 0,
+                            Title = "Triple Room"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -257,6 +402,15 @@ namespace HotelAppLibrary.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            ConcurrencyStamp = "6e1b9ac1-281e-4748-b5ff-1074ff228d8a",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -346,6 +500,13 @@ namespace HotelAppLibrary.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            RoleId = "a18be9c0-aa65-4af8-bd17-00bd9344e575"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -369,28 +530,35 @@ namespace HotelAppLibrary.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("HotelAppLibrary.Models.Bookings", b =>
+            modelBuilder.Entity("AmenityRoomType", b =>
                 {
-                    b.HasOne("HotelAppLibrary.Models.Guest", "Guest")
+                    b.HasOne("Domain.Entities.Amenity", null)
                         .WithMany()
-                        .HasForeignKey("GuestId")
+                        .HasForeignKey("AmenitiesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotelAppLibrary.Models.Room", "Room")
+                    b.HasOne("Domain.Entities.RoomType", null)
+                        .WithMany()
+                        .HasForeignKey("RoomTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Bookings", b =>
+                {
+                    b.HasOne("Domain.Entities.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Guest");
-
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("HotelAppLibrary.Models.Room", b =>
+            modelBuilder.Entity("Domain.Entities.Room", b =>
                 {
-                    b.HasOne("HotelAppLibrary.Models.RoomType", "Type")
+                    b.HasOne("Domain.Entities.RoomType", "Type")
                         .WithMany()
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -410,7 +578,7 @@ namespace HotelAppLibrary.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("HotelAppLibrary.Models.ApplicationUser", null)
+                    b.HasOne("Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -419,7 +587,7 @@ namespace HotelAppLibrary.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("HotelAppLibrary.Models.ApplicationUser", null)
+                    b.HasOne("Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -434,7 +602,7 @@ namespace HotelAppLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotelAppLibrary.Models.ApplicationUser", null)
+                    b.HasOne("Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -443,7 +611,7 @@ namespace HotelAppLibrary.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("HotelAppLibrary.Models.ApplicationUser", null)
+                    b.HasOne("Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

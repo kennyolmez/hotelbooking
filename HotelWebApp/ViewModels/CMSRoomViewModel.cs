@@ -13,6 +13,5 @@ namespace HotelWebApp.ViewModels
         public string RoomType { get; set; }
         [Required]
         public int RoomNumber { get; set; }
-
     }
 }

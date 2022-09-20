@@ -86,8 +86,15 @@ namespace ApplicationServices.Services
             roomType.ImgUrl = imgUrl;
             roomType.Price = price;
 
-            roomType.Amenities.Clear();
-            roomType.Amenities = await db.Amenities.Include(r => r.RoomTypes).Where(x => amenity.Contains(x.Name)).ToListAsync();
+            // Another cheap solution, but it works. Makes sure that the list is not empty for that room, otherwise it will clear all the rooms of amenities.
+
+            if(amenity.Count() > 0)
+            {
+                roomType.Amenities.Clear();
+                roomType.Amenities = await db.Amenities.Include(r => r.RoomTypes).Where(x => amenity.Contains(x.Name)).ToListAsync();
+            }
+   
+            
             
             await db.SaveChangesAsync();
         }

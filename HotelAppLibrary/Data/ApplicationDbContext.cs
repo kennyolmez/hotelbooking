@@ -63,6 +63,8 @@ namespace HotelAppLibrary.Data
                 .IsRequired()
                 .HasMaxLength(2000);
 
+            // Seeding all the necessary data. Might be a sloppy solution but gets the job done in a hurry. 
+
             modelBuilder.Entity<Amenity>()
                 .HasData(
                 new Amenity()
@@ -102,6 +104,7 @@ namespace HotelAppLibrary.Data
                     Title = "Single Room",
                     Description = "A single room has one single bed for single occupancy. An additional bed (called an extra bed) may be added to this room at the request of a guest and charged accordingly.",
                     ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                    Price = 50
                 },
 
                 new RoomType()
@@ -110,6 +113,7 @@ namespace HotelAppLibrary.Data
                     Title = "Twin Room",
                     Description = "A twin room has two single beds for double occupancy. An extra bed may be added to this room at the request of a guest and charged accordingly. Here the bed size is normally 3 feet by 6 feet. These rooms are suitable for sharing accommodation among a group of delegates meeting.",
                     ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                    Price = 75
                 },
 
                 new RoomType()
@@ -118,6 +122,7 @@ namespace HotelAppLibrary.Data
                     Title = "Double Room",
                     Description = "A double room has one double bed for double occupancy. An extra bed may be added to this room at the request of a guest and charged accordingly. The size of the double bed is generally 4.5 feet by 6 feet.",
                     ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                    Price = 105
                 },
 
                 new RoomType()
@@ -126,8 +131,23 @@ namespace HotelAppLibrary.Data
                     Title = "Triple Room",
                     Description = "A triple room has three separate single beds and can be occupied by three guests. This type of room is suitable for groups and delegates of meetings and conferences.",
                     ImgUrl = "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy",
+                    Price = 160
                 }
                 );
+
+
+            // Seeding the navigation property with an anonymous type, populates the junction table with UsingEntity
+
+            modelBuilder.Entity<RoomType>()
+                .HasMany(p => p.Amenities)
+                .WithMany(p => p.RoomTypes)
+                .UsingEntity(j => j.HasData(
+                    new { AmenitiesId = 1, RoomTypesId = 1 },
+                    new { AmenitiesId = 2, RoomTypesId = 1 },
+                    new { AmenitiesId = 3, RoomTypesId = 2 },
+                    new { AmenitiesId = 4, RoomTypesId = 2 }
+                ));
+
 
             modelBuilder.Entity<Room>()
                 .HasData(

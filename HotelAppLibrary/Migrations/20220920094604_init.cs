@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HotelAppLibrary.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -272,6 +272,67 @@ namespace HotelAppLibrary.Migrations
                         principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Amenities",
+                columns: new[] { "Id", "Icon", "Name" },
+                values: new object[,]
+                {
+                    { 1, "fas fa-hot-tub", "Jacuzzi" },
+                    { 2, "fa-solid fa-beer-mug-empty", "Coffee" },
+                    { 3, "bi bi-laptop", "Laptop" },
+                    { 4, "fa-solid fa-tv", "TV" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "9f6414b7-c359-4db4-94cb-eeeda50df1ec", "Admin", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "9553d19c-edaa-4867-a9be-d1060dbcf21d", "kennyolmezhotel@gmail.com", true, null, null, false, null, "kennyolmezhotel@gmail.com", "kennyolmezhotel@gmail.com", "AQAAAAEAACcQAAAAEA9yvFBvwwHq91005/91Y7acojnfAZJ1E4FO5o/RSj6WyePfWf40FYprVmJGQtG6Vg==", null, false, "", false, "kennyolmezhotel@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "RoomTypes",
+                columns: new[] { "Id", "Description", "ImgUrl", "Price", "Size", "Title" },
+                values: new object[,]
+                {
+                    { 1, "A single room has one single bed for single occupancy. An additional bed (called an extra bed) may be added to this room at the request of a guest and charged accordingly.", "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy", 0m, 0, "Single Room" },
+                    { 2, "A twin room has two single beds for double occupancy. An extra bed may be added to this room at the request of a guest and charged accordingly. Here the bed size is normally 3 feet by 6 feet. These rooms are suitable for sharing accommodation among a group of delegates meeting.", "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy", 0m, 0, "Twin Room" },
+                    { 3, "A double room has one double bed for double occupancy. An extra bed may be added to this room at the request of a guest and charged accordingly. The size of the double bed is generally 4.5 feet by 6 feet.", "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy", 0m, 0, "Double Room" },
+                    { 4, "A triple room has three separate single beds and can be occupied by three guests. This type of room is suitable for groups and delegates of meetings and conferences.", "https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy", 0m, 0, "Triple Room" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AmenityRoomType",
+                columns: new[] { "AmenitiesId", "RoomTypesId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 3, 2 },
+                    { 4, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "a18be9c0-aa65-4af8-bd17-00bd9344e575" });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "RoomNumber", "RoomTypeId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 },
+                    { 3, 3, 2 },
+                    { 4, 4, 3 },
+                    { 5, 5, 4 },
+                    { 6, 6, 4 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -14,27 +14,27 @@
     for(int i = 0; i < @Model.RoomTypes.Count(); i++)
     {
         <div>
-        <label asp-for="@Model.RoomTypes[i].Title"></label>
+        <label asp-for="Titles"></label>
         <input asp-for="Titles" value="@Model.RoomTypes[i].Title" class="col-xs-4"/>
         <span asp-validation-for="Titles[i]" class="text-danger"></span>
         </div>
         <div>
-        <label asp-for="@Model.RoomTypes[i].Description"></label>
+        <label asp-for="Descriptions"></label>
         <input asp-for="Descriptions" value="@Model.RoomTypes[i].Description" class="col-xs-4"/>
         <span asp-validation-for="Descriptions[i]" class="text-danger"></span>
         </div>
          <div>
-        <label asp-for="@Model.RoomTypes[i].Price"></label>
+        <label asp-for="Prices"></label>
         <input asp-for="Prices" value="@Model.RoomTypes[i].Price" class="col-xs-4"/>
         <span asp-validation-for="Prices[i]" class="text-danger"></span>
         </div>
          <div>
-        <label asp-for="@Model.RoomTypes[i].ImgUrl"></label>
+        <label asp-for="ImgUrls"></label>
         <input asp-for="ImgUrls" value="@Model.RoomTypes[i].ImgUrl" class="col-xs-4"/>
         <span asp-validation-for="ImgUrls[i]" class="text-danger"></span>
         </div>
         <div>
-        <label asp-for="@Model.RoomTypes[i].Size"></label>
+        <label asp-for="Sizes"></label>
         <input asp-for="Sizes" value="@Model.RoomTypes[i].Size" class="col-xs-4"/>
         <span asp-validation-for="Sizes[i]" class="text-danger"></span>
         </div>
@@ -42,8 +42,8 @@
         @{
             foreach(var amenity in Model.Amenities)
                 {
-                <input type="checkbox" name="Amenities" value="@amenity">
-                <label for="@amenity">@amenity</label>       
+                 <input type="checkbox" name="Amenities" value="@i@amenity">
+                 <label for="@amenity">@amenity</label>       
                 }
                 }
         </div>        

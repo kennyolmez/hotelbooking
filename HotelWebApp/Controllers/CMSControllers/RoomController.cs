@@ -35,12 +35,12 @@ namespace HotelWebApp.Controllers.CMSControllers
 
             return View(viewModel);
         }
+        // Refactor this controller, using fluent validation
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CMSRoomViewModel viewModel) 
         {
-            // Refactor this controller, using fluent validation
             var roomsToExclude = (await sql.GetAllRooms()).Select(x => x.RoomNumber).ToList();
 
             // Makes sure they cannot input duplicates via the inspector

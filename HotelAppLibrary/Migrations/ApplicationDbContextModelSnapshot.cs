@@ -35,6 +35,28 @@ namespace HotelAppLibrary.Migrations
                     b.HasIndex("RoomTypesId");
 
                     b.ToTable("AmenityRoomType");
+
+                    b.HasData(
+                        new
+                        {
+                            AmenitiesId = 1,
+                            RoomTypesId = 1
+                        },
+                        new
+                        {
+                            AmenitiesId = 2,
+                            RoomTypesId = 1
+                        },
+                        new
+                        {
+                            AmenitiesId = 3,
+                            RoomTypesId = 2
+                        },
+                        new
+                        {
+                            AmenitiesId = 4,
+                            RoomTypesId = 2
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Amenity", b =>
@@ -159,13 +181,13 @@ namespace HotelAppLibrary.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1de98154-af1d-488e-ab0b-2cc695bf4c14",
+                            ConcurrencyStamp = "9553d19c-edaa-4867-a9be-d1060dbcf21d",
                             Email = "kennyolmezhotel@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "kennyolmezhotel@gmail.com",
                             NormalizedUserName = "kennyolmezhotel@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBdarxsfLljqP/k0+PIL5mCYIRBNDDypIPvXJcRL8g3H4eNsyGp6zOlogiBjy+bBJw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA9yvFBvwwHq91005/91Y7acojnfAZJ1E4FO5o/RSj6WyePfWf40FYprVmJGQtG6Vg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -407,7 +429,7 @@ namespace HotelAppLibrary.Migrations
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            ConcurrencyStamp = "6e1b9ac1-281e-4748-b5ff-1074ff228d8a",
+                            ConcurrencyStamp = "9f6414b7-c359-4db4-94cb-eeeda50df1ec",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         });

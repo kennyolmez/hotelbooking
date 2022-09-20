@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelAppLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220919210300_add-migration addedAdminSeed")]
-    partial class addmigrationaddedAdminSeed
+    [Migration("20220920094604_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,28 @@ namespace HotelAppLibrary.Migrations
                     b.HasIndex("RoomTypesId");
 
                     b.ToTable("AmenityRoomType");
+
+                    b.HasData(
+                        new
+                        {
+                            AmenitiesId = 1,
+                            RoomTypesId = 1
+                        },
+                        new
+                        {
+                            AmenitiesId = 2,
+                            RoomTypesId = 1
+                        },
+                        new
+                        {
+                            AmenitiesId = 3,
+                            RoomTypesId = 2
+                        },
+                        new
+                        {
+                            AmenitiesId = 4,
+                            RoomTypesId = 2
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Amenity", b =>
@@ -161,17 +183,17 @@ namespace HotelAppLibrary.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1cbe430f-2992-41f9-a7e8-690fe8b7dcf7",
+                            ConcurrencyStamp = "9553d19c-edaa-4867-a9be-d1060dbcf21d",
                             Email = "kennyolmezhotel@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "kennyolmezhotel@gmail.com",
-                            NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBnCrDICOgSxgJeEsRDH2HTFG0toOH7F6k1t1J+LIT13Z3EFz3wUyTf7H2+RZY/+WQ==",
+                            NormalizedUserName = "kennyolmezhotel@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA9yvFBvwwHq91005/91Y7acojnfAZJ1E4FO5o/RSj6WyePfWf40FYprVmJGQtG6Vg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "Admin"
+                            UserName = "kennyolmezhotel@gmail.com"
                         });
                 });
 
@@ -409,7 +431,7 @@ namespace HotelAppLibrary.Migrations
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            ConcurrencyStamp = "3c214bf3-5858-4d6b-bd46-0ba8dfabbf5c",
+                            ConcurrencyStamp = "9f6414b7-c359-4db4-94cb-eeeda50df1ec",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         });

@@ -37,6 +37,7 @@ namespace HotelWebApp.Controllers.CMSControllers
                 Amenities = (await sql.GetAmenities()).Select(x => x.Name).ToList() // Can I do queries here?
             };
 
+
             return View(viewModel);
         }
 
@@ -92,7 +93,7 @@ namespace HotelWebApp.Controllers.CMSControllers
             CMSRoomTypeEditViewModel viewModel = new CMSRoomTypeEditViewModel
             {
                 RoomTypes = await sql.GetAllRoomTypes(),
-                Amenities = (await sql.GetAmenities()).Select(x => x.Name).ToList()
+                Amenities = (await sql.GetAmenities()).Select(x => x.Name).ToList(),
             };
 
             return View(viewModel);
@@ -104,35 +105,19 @@ namespace HotelWebApp.Controllers.CMSControllers
         public async Task<IActionResult> Edit(CMSRoomTypeEditViewModel obj)
         {
             // Validate to make sure no null values
-            for (int i = 0; i < obj.Ids.Count(); i++)
-            {
-                if (obj.Descriptions[i] == null)
-                {
-                    ModelState.AddModelError("obj.Descriptions", "Descriptions field must not be blank!");
-                }
-                if (obj.Titles[i] == null)
-                {
-                    ModelState.AddModelError("obj.Titles", "Titles field must not be blank!");
-                }
-                if (obj.Prices[i] == null)
-                {
-                    ModelState.AddModelError("obj.Prices", "Prices field must not be blank!");
-                }
-                if (obj.Sizes[i] == null)
-                {
-                    ModelState.AddModelError("obj.Sizes", "Sizes field must not be blank!");
-                }
-                if (obj.ImgUrls[i] == null)
-                {
-                    ModelState.AddModelError("obj.ImgUrls", "ImgUrls field must not be blank!");
-                }
-            }
+           
 
             if(ModelState.IsValid)
             {
                 for (int i = 0; i < obj.Ids.Count(); i++)
                 {
-                    await sqlCrud.EditRoomType(obj.Titles[i], obj.Prices[i], obj.Descriptions[i], obj.ImgUrls[i], obj.Sizes[i], obj.Amenities, obj.Ids[i]);
+                    // Cheap but quick solution. In the view, I add the iterator to the beginning of every amenity
+                    // Here I store the amenity associated with the right roomtype and then remove the letter.
+                   
+                    string digit = Convert.ToString(i);
+                    var amenities = obj.Amenities.Where(x => x.Contains(digit)).Select(x => x.Substring(1)).ToList();
+
+                    await sqlCrud.EditRoomType(obj.Titles[i], obj.Prices[i], obj.Descriptions[i], obj.ImgUrls[i], obj.Sizes[i], amenities, obj.Ids[i]);
                 }
                     
             }

@@ -122,7 +122,7 @@ namespace ApplicationServices.Services
                 EndDate = endDate
             };
 
-            await db.Bookings.AddAsync(booking);
+            db.Bookings.Add(booking);
             await db.SaveChangesAsync();
 
             SendBookingConfirmationEmail(booking);
@@ -140,7 +140,7 @@ namespace ApplicationServices.Services
             };
 
 
-            await db.Reviews.AddAsync(review);
+            db.Reviews.Add(review);
             await db.SaveChangesAsync();
         }
 

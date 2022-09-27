@@ -51,8 +51,8 @@ namespace ApplicationServices.Services
 
             // Find better solution. For everything below
             // Populates a list of amenities based on the Ids of amenityIds passed into the method
-            List<Amenity> amenities = await db.Amenities.Where(a => amenityIds.Contains(a.Id)).ToListAsync();
-            List<RoomType> roomsToRemove = new List<RoomType>();
+            var amenities = await db.Amenities.Where(a => amenityIds.Contains(a.Id)).ToListAsync();
+            var roomsToRemove = new List<RoomType>();
             // Make output of roomtypes only those roomtypes that contain the amenities
 
             foreach (var room in roomTypes)
@@ -82,7 +82,7 @@ namespace ApplicationServices.Services
         public async Task<List<Room>> GetAvailableRooms(DateTime startDate, DateTime endDate)
         {
             // All rooms that exist in the database
-            List<Room> output = await db.Rooms.ToListAsync();
+            var output = await db.Rooms.ToListAsync();
 
             var bookings = await db.Bookings.ToListAsync();
 
@@ -108,11 +108,11 @@ namespace ApplicationServices.Services
                                   DateTime startDate,
                                   DateTime endDate)
         {
-            List<Room> roomsAvailable = await GetAvailableRooms(startDate, endDate);
+            var roomsAvailable = await GetAvailableRooms(startDate, endDate);
 
-            Room room = roomsAvailable.Where(r => r.RoomTypeId == roomTypeId).First();
+            var room = roomsAvailable.Where(r => r.RoomTypeId == roomTypeId).First();
 
-            Bookings booking = new Bookings
+            var booking = new Bookings
             {
                 RoomId = room.Id,
                 FirstName = firstName,
@@ -130,7 +130,7 @@ namespace ApplicationServices.Services
 
         public async Task CreateReview(string description, int rating, string userEmail, int RoomTypeId)
         {
-            Review review = new Review
+            var review = new Review
             {
                 Description = description,
                 Rating = rating,
@@ -179,7 +179,7 @@ namespace ApplicationServices.Services
 
         public async Task<List<AmenityDTO>> GetAmenities()
         {
-            List<Amenity> amenities = await db.Amenities.ToListAsync();
+            var amenities = await db.Amenities.ToListAsync();
 
             var output = amenities.Select(x => new AmenityDTO(x)).ToList();
 
@@ -188,7 +188,7 @@ namespace ApplicationServices.Services
 
         public async Task<RoomTypeDTO> GetRoomTypeById(int id)
         {
-            RoomType roomType = await db.RoomTypes.Where(r => r.Id == id).FirstOrDefaultAsync();
+            var roomType = await db.RoomTypes.Where(r => r.Id == id).FirstOrDefaultAsync();
 
             var output = new RoomTypeDTO(roomType);
 
@@ -197,7 +197,7 @@ namespace ApplicationServices.Services
 
         public async Task<List<RoomTypeDTO>> GetAllRoomTypes()
         {
-            List<RoomType> roomTypes = await db.RoomTypes.Include(a => a.Amenities).ToListAsync();
+            var roomTypes = await db.RoomTypes.Include(a => a.Amenities).ToListAsync();
 
             var output = roomTypes.Select(x => new RoomTypeDTO(x)).ToList();
 
@@ -206,21 +206,21 @@ namespace ApplicationServices.Services
 
         public async Task<List<ReviewDTO>> GetReviewsByRoomTypeId(int RoomTypeId)
         {
-            List<Review> reviews = await db.Reviews.Where(r => r.RoomTypeId == RoomTypeId).ToListAsync();
+            var reviews = await db.Reviews.Where(r => r.RoomTypeId == RoomTypeId).ToListAsync();
 
             return reviews.Select(x => new ReviewDTO(x)).ToList();
         }
 
         public async Task<List<ReviewDTO>> GetReviewsByUserEmail(string emailAddress)
         {
-            List<Review> reviews = await db.Reviews.Where(r => r.UserEmail == emailAddress).ToListAsync();
+            var reviews = await db.Reviews.Where(r => r.UserEmail == emailAddress).ToListAsync();
 
             return reviews.Select(x => new ReviewDTO(x)).ToList();
         }
 
         public async Task<List<BookingsDTO>> GetBookingsByUserEmail(string emailAddress)
         {
-            List<Bookings> bookings = await db.Bookings.Where(b => b.Email == emailAddress)
+            var bookings = await db.Bookings.Where(b => b.Email == emailAddress)
                 .Include(x => x.Room)
                 .Include(x => x.Room.Type)
                 .ToListAsync();

@@ -66,14 +66,13 @@ namespace ApplicationServices.Services
                 }
             }
 
+            // RoomTypes after filtering
             roomTypes = roomTypes.Except(roomsToRemove).ToList();
 
-            roomTypes = (from p in roomTypes
-                         orderby p.Price
-                         select p).ToList();
+            // RoomTypes ordered by price
+            roomTypes = roomTypes.OrderBy(x => x.Price).ToList();
 
-            // Convert filtered roomtypes to RoomTypeDTO
-
+            // Convert to RoomTypeDTO
             var output = roomTypes.Select(x => new RoomTypeDTO(x))
                 .ToList();
 

@@ -24,7 +24,7 @@ namespace ApplicationServices.Services
                 Icon = icon
             };
 
-            await db.AddAsync(amenity);
+            db.Add(amenity);
             await db.SaveChangesAsync();
         }
 
@@ -46,7 +46,7 @@ namespace ApplicationServices.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task CreateRoomType(string title, decimal price, string description, string imgUrl, int size, List<string> amenity)
+        public async Task CreateRoomType(string title, decimal price, string description, string imgUrl, int size, List<string> amenities)
         {
 
             var roomType = new RoomType
@@ -56,10 +56,10 @@ namespace ApplicationServices.Services
                 Description = description,
                 ImgUrl = imgUrl,
                 Size = size,
-                Amenities = await db.Amenities.Where(a => amenity.Contains(a.Name)).ToListAsync()
+                Amenities = await db.Amenities.Where(a => amenities.Contains(a.Name)).ToListAsync()
             };
 
-            await db.AddAsync(roomType);
+           db.Add(roomType);
             await db.SaveChangesAsync();
         }
 
@@ -107,7 +107,7 @@ namespace ApplicationServices.Services
                 RoomNumber = roomNumber
             };
 
-            await db.AddAsync(room);
+            db.Add(room);
             await db.SaveChangesAsync();
         }
         public async Task DeleteRoom(int roomNumber)

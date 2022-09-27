@@ -152,7 +152,7 @@ namespace ApplicationServices.Services
             await db.SaveChangesAsync();
         }
 
-        public void SendBookingConfirmationEmail(Bookings booking)
+        public async Task SendBookingConfirmationEmail(Bookings booking)
         {
             // Generate a token to make sure the link is secure
             Guid newId = Guid.NewGuid();
@@ -172,7 +172,7 @@ namespace ApplicationServices.Services
                     smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new NetworkCredential("kenanolmezofficial@gmail.com", "tkdn nekc wifq remh");
                     smtp.EnableSsl = true;
-                    smtp.Send(mailMsg);
+                    await smtp.SendMailAsync(mailMsg);
                 }
             }
         }
